@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { ADD_THOUGHT } from '../../utils/mutations';
-import { QUERY_THOUGHTS, QUERY_ME } from '../../utils/queries';
+import { QUERY_THOUGHT, QUERY_ME } from '../../utils/queries';
 
 const ThoughtForm = () => {
-    const [addThought, { error }] = useMutation(ADD_THOUGHT);
     const [thoughtText, setText] = useState('');
     const [characterCount, setCharacterCount] = useState(0);
 
@@ -12,9 +11,9 @@ const ThoughtForm = () => {
         update(cache, { data: { addThought } }) {
           try {
             // could potentially not exist yet, so wrap in a try...catch
-            const { thoughts } = cache.readQuery({ query: QUERY_THOUGHTS });
+            const { thoughts } = cache.readQuery({ query: QUERY_THOUGHT });
             cache.writeQuery({
-              query: QUERY_THOUGHTS,
+              query: QUERY_THOUGHT,
               data: { thoughts: [addThought, ...thoughts] }
             });
           } catch (e) {

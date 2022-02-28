@@ -5,7 +5,7 @@ import { useMutation } from '@apollo/client';
 const ReactionForm = ({ thoughtId }) => {
 
     const [addReaction, { error }] = useMutation(ADD_REACTION);
-    const [reactionBody, setBody] = useState('');
+    const [reactionBody, setBody, setText ] = useState('');
     const [characterCount, setCharacterCount] = useState(0);
 
     const handleChange = event => {
@@ -23,14 +23,13 @@ const ReactionForm = ({ thoughtId }) => {
         await addReaction({
           variables: { reactionBody, thoughtId }
         });
-    
-        // clear form value
-        setText('');
-        setCharacterCount(0);
-      } catch (e) {
-        console.error(e);
-      }
-    };
+          // clear form value
+          setText('');
+          setCharacterCount(0);
+        } catch (e) {
+          console.error(e);
+        }
+      };
 
   return (
     <div>
